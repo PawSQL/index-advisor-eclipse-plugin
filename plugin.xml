@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="cn.sqllabs.ia.plugin.commands.category"
+            name="Sample Category">
+      </category>
+      <command
+            categoryId="cn.sqllabs.ia.plugin.commands.category"
+            name="Sample Command"
+            id="cn.sqllabs.ia.plugin.commands.sampleCommand">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="cn.sqllabs.ia.plugin.handlers.IndexAdvisorHandler"
+            commandId="cn.sqllabs.ia.plugin.commands.sampleCommand">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="cn.sqllabs.ia.plugin.commands.sampleCommand"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            contextId="org.eclipse.ui.contexts.window"
+            sequence="M1+6">
+      </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               id="cn.sqllabs.ia.plugin.menus.sampleMenu"
+               label="Sample Menu"
+               mnemonic="M">
+            <command
+                  commandId="cn.sqllabs.ia.plugin.commands.sampleCommand"
+                  id="cn.sqllabs.ia.plugin.menus.sampleCommand"
+                  mnemonic="S">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="cn.sqllabs.ia.plugin.toolbars.sampleToolbar">
+            <command
+                  id="cn.sqllabs.ia.plugin.toolbars.sampleCommand"
+                  commandId="cn.sqllabs.ia.plugin.commands.sampleCommand"
+                  icon="icons/sample.png"
+                  tooltip="Say hello world">
+            </command>
+         </toolbar>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            id="cn.sqllabs.ia.plugin.preferences.IAPreferencePage"
+            name="Index Advisor Preferences"
+            class="cn.sqllabs.ia.plugin.preferences.IAPreferencePage">
+      </page>
+   </extension>
+      <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            id="cn.sqllabs.ia.plugin.preferences.IndexAdvisorPropertyPage"
+            name="Index Advisor Preferences"
+            class="cn.sqllabs.ia.plugin.preferences.IndexAdvisorPropertyPage">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="cn.sqllabs.ia.plugin.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.propertyPages">
+      <page
+            id="cn.sqllabs.ia.plugin.properties.IAPropertyPage"
+            name="IA Config"
+            class="cn.sqllabs.ia.plugin.properties.IAPropertyPage"
+            >
+         <enabledWhen>
+            <instanceof
+                  value="org.eclipse.core.resources.IProject">
+            </instanceof>
+         </enabledWhen>
+      </page>
+            <page
+            id="cn.sqllabs.ia.plugin.properties.IndexAdvisorPropertyPage.project"
+            name="Index Advisor Config"
+            class="cn.sqllabs.ia.plugin.properties.IndexAdvisorPropertyPage"
+            objectClass="org.eclipse.core.resources.IProject"
+	        adaptable="true"
+            >
+         <enabledWhen>
+            <instanceof
+                  value="org.eclipse.core.resources.IProject">
+            </instanceof>
+         </enabledWhen>
+      </page>
+   </extension>
+</plugin>
