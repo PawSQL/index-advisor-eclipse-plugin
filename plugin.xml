@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-
    <extension
          point="org.eclipse.ui.commands">
       <category
@@ -32,46 +31,37 @@
    </extension>
    <extension
          point="org.eclipse.ui.menus">
-      <menuContribution
-            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+    <menuContribution 
+          locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+       <menu
+             commandId="cn.sqllabs.ia.plugin.commands.sampleCommand"
+             id="cn.sqllabs.ia.plugin.popupMenu"
+             label="Index Advise">
+       </menu>
+    </menuContribution>
+          <menuContribution
+            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+             <command
+            label="Index Advisor2"
+            commandId="cn.sqllabs.ia.plugin.commands.sampleCommand">
+      </command>
          <menu
-               id="cn.sqllabs.ia.plugin.menus.sampleMenu"
-               label="Sample Menu"
-               mnemonic="M">
-            <command
-                  commandId="cn.sqllabs.ia.plugin.commands.sampleCommand"
-                  id="cn.sqllabs.ia.plugin.menus.sampleCommand"
-                  mnemonic="S">
-            </command>
+               id="com.coala.core.menus.popupMenu"
+               label="Index Advisor"
+               mnemonic="o">
+
          </menu>
       </menuContribution>
-      <menuContribution
-            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
-         <toolbar
-               id="cn.sqllabs.ia.plugin.toolbars.sampleToolbar">
-            <command
-                  id="cn.sqllabs.ia.plugin.toolbars.sampleCommand"
-                  commandId="cn.sqllabs.ia.plugin.commands.sampleCommand"
-                  icon="icons/sample.png"
-                  tooltip="Say hello world">
-            </command>
-         </toolbar>
-      </menuContribution>
-   </extension>
-   <extension
-         point="org.eclipse.ui.preferencePages">
-      <page
-            id="cn.sqllabs.ia.plugin.preferences.IAPreferencePage"
-            name="Index Advisor Preferences"
-            class="cn.sqllabs.ia.plugin.preferences.IAPreferencePage">
-      </page>
+    
+    
+    
    </extension>
       <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            id="cn.sqllabs.ia.plugin.preferences.IndexAdvisorPropertyPage"
+            id="cn.sqllabs.ia.plugin.properties.IndexAdvisorPropertyPage"
             name="Index Advisor Preferences"
-            class="cn.sqllabs.ia.plugin.preferences.IndexAdvisorPropertyPage">
+            class="cn.sqllabs.ia.plugin.properties.IndexAdvisorPropertyPage">
       </page>
    </extension>
    <extension

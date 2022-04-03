@@ -1,54 +1,25 @@
 package cn.sqllabs.ia.plugin.properties;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.ComboFieldEditor;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
-import org.eclipse.jface.preference.FieldEditor;
-import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.RadioGroupFieldEditor;
 import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPropertyPage;
 
 import com.bdaum.overlayPages.FieldEditorOverlayPage;
 
-import cn.sqllabs.ia.plugin.Activator;
-
 public class IndexAdvisorPropertyPage extends FieldEditorOverlayPage implements IWorkbenchPropertyPage {
-
-//	private IResource resource;
-	private List<FieldEditor> editList;
-//	private RadioGroupFieldEditor queryMode;
-//	private DirectoryFieldEditor queryFolder;
-//
-//	private ComboFieldEditor dbType;
-//	private StringFieldEditor dbHost;
-//	private StringFieldEditor dbUser;
-//	private StringFieldEditor dbPwd;
-//	private StringFieldEditor database;
-//	private StringFieldEditor schemaList;
-//	private BooleanFieldEditor validate;
 
 	/**
 	 * Constructor for SamplePropertyPage.
 	 */
 	public IndexAdvisorPropertyPage() {
 		super(GRID);
-		setPreferenceStore(Activator.getDefault().getPreferenceStore());
-		setDescription("A configration page for index advisor");
-//		resource = (IResource) getElement();
-		editList = new ArrayList<FieldEditor>();
 	}
 
 	/**
@@ -58,51 +29,7 @@ public class IndexAdvisorPropertyPage extends FieldEditorOverlayPage implements 
 	 */
 
 	public void createFieldEditors() {
-//		queryMode = new RadioGroupFieldEditor(IAPropertiesConstants.QUERY_MODE, "How to get queries to analyze", 1,
-//				new String[][] { { "Extract SQL queries in mapper directory", "mapper" },
-//						{ "SQL statements in a file directory", "offline" } },
-//				getFieldEditorParent());
-//		queryFolder = new DirectoryFieldEditor(IAPropertiesConstants.SQL_FOLDER, "&Directory for query:",
-//				getFieldEditorParent());
-//		dbType = new ComboFieldEditor(IAPropertiesConstants.DB_TYPE, "Specify database type",
-//				new String[][] { { "MySQL", "mysql" }, { "PostgreSQL", "postgres" }, { "Open Gauss", "opengauss" } },
-//				getFieldEditorParent());
-//		dbHost = new StringFieldEditor(IAPropertiesConstants.DB_HOST, "Database host:", 20,
-//				getFieldEditorParent());
-//		dbUser = new StringFieldEditor(IAPropertiesConstants.DB_USER, "Database user name:", 12,
-//				getFieldEditorParent());
-//
-//		dbPwd = new StringFieldEditor(IAPropertiesConstants.DB_PWD, "Database password:", 12,
-//				getFieldEditorParent());
-//		database = new StringFieldEditor(IAPropertiesConstants.DATABASE, "Default database:", 12,
-//				getFieldEditorParent());
-//		schemaList = new StringFieldEditor(IAPropertiesConstants.SCHEMALIST, "Schema/database list:",
-//				20, getFieldEditorParent());
-//		validate = new BooleanFieldEditor(IAPropertiesConstants.IA_VALIDATE,
-//				"&Validate the recommended indice", getFieldEditorParent());
-//
-//		editList.add(queryMode);
-//		editList.add(queryFolder);
-//		editList.add(dbType);
-//		editList.add(dbHost);
-//		editList.add(dbUser);
-//		editList.add(dbPwd);
-//		editList.add(database);
-//		editList.add(schemaList);
-//		editList.add(validate);
-//
-//		addField(queryMode);
-//		addField(queryFolder);
-//		addField(dbType);
-//
-//		addField(dbHost);
-//		addField(dbUser);
-//		addField(dbPwd);
-//		addField(database);
-//		addField(schemaList);
-//
-//		addSeparator(getFieldEditorParent());
-//		addField(validate);
+		addSeparator(getFieldEditorParent());
 		addField(new RadioGroupFieldEditor(
 				IAPropertiesConstants.QUERY_MODE,
 			"How to get queries to analyze",
@@ -140,7 +67,7 @@ public class IndexAdvisorPropertyPage extends FieldEditorOverlayPage implements 
 		addField(
 				new BooleanFieldEditor(
 					IAPropertiesConstants.IA_VALIDATE,
-					"&Validate the recommended indice",
+					"Validate the recommended indice",
 					getFieldEditorParent()));
 	}
 
@@ -238,33 +165,7 @@ public class IndexAdvisorPropertyPage extends FieldEditorOverlayPage implements 
 //		return true;
 //	}
 
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see org.eclipse.ui.IWorkbenchPreferencePage#init(org.eclipse.ui.IWorkbench)
-//	 */
-//	public void init(IWorkbench workbench) {
-//	}
 
-//	/**
-//	 * The element.
-//	 */
-//	private IAdaptable element;
-//
-//	@Override
-//	public IAdaptable getElement() {
-//		return element;
-//	}
-//
-//	/**
-//	 * Sets the element that owns properties shown on this page.
-//	 *
-//	 * @param element the element
-//	 */
-//	@Override
-//	public void setElement(IAdaptable element) {
-//		this.element = element;
-//	}
 
 	private void addSeparator(Composite parent) {
 		Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);

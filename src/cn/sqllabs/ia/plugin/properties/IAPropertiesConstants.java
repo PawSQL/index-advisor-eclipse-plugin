@@ -1,6 +1,8 @@
 package cn.sqllabs.ia.plugin.properties;
 
 public class IAPropertiesConstants {
+	
+	public static final String PAGE_ID = "cn.sqllabs.ia.plugin.defaultPreferences";
 
 	public static final String QUERY_MODE = "sqllab.querymode";
 	
