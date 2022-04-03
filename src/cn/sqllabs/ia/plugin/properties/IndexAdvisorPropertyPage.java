@@ -33,11 +33,10 @@ public class IndexAdvisorPropertyPage extends FieldEditorOverlayPage implements 
 	 */
 
 	public void createFieldEditors() {
-		addSeparator(getFieldEditorParent());
-		addField(new RadioGroupFieldEditor(
+//		addSeparator(getFieldEditorParent());
+		addField(new ComboFieldEditor(
 				IAPropertiesConstants.QUERY_MODE,
-			"Query type",
-			1,
+			"Query type:",
 			new String[][] { { "Mapper files", "mapper" }, {
 				"SQL files", "offline" }
 		}, getFieldEditorParent()));
@@ -46,7 +45,7 @@ public class IndexAdvisorPropertyPage extends FieldEditorOverlayPage implements 
 //				"&Directory for query:", getFieldEditorParent()));
 		ComboFieldEditor combo = new ComboFieldEditor(
 				IAPropertiesConstants.DB_TYPE,
-			"Database type",
+			"Database type:",
 			new String[][] { { "MySQL", "mysql" }, {
 				"PostgreSQL", "postgres" },{ "Open Gauss", "opengauss" }
 		}, getFieldEditorParent());
@@ -63,6 +62,7 @@ public class IndexAdvisorPropertyPage extends FieldEditorOverlayPage implements 
 				new StringFieldEditor(IAPropertiesConstants.DATABASE, "Default database:", 12, getFieldEditorParent()));
 		addField(
 				new StringFieldEditor(IAPropertiesConstants.SCHEMALIST, "Schema/database list:",20, getFieldEditorParent()));
+		addSeparator(getFieldEditorParent());
 		addField(
 				new BooleanFieldEditor(
 					IAPropertiesConstants.VALIDATE_FLAG,
@@ -77,7 +77,7 @@ public class IndexAdvisorPropertyPage extends FieldEditorOverlayPage implements 
 	private void addSeparator(Composite parent) {
 		Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
 		GridData gridData = new GridData();
-		gridData.horizontalSpan = 2;
+//		gridData.horizontalSpan = 2;
 		gridData.horizontalAlignment = GridData.FILL;
 		gridData.grabExcessHorizontalSpace = true;
 		separator.setLayoutData(gridData);
