@@ -18,10 +18,14 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 	 */
 	public void initializeDefaultPreferences() {
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
-		store.setDefault(IAPropertiesConstants.P_BOOLEAN, true);
-		store.setDefault(IAPropertiesConstants.P_CHOICE, "choice2");
-		store.setDefault(IAPropertiesConstants.P_STRING,
-				"Default value");
+		store.setDefault(IAPropertiesConstants.QUERY_MODE, "mapper");
+		store.setDefault(IAPropertiesConstants.DB_HOST, "localhost");
+		store.setDefault(IAPropertiesConstants.DB_USER, "root");
+		store.setDefault(IAPropertiesConstants.DB_PWD, "root");
+		store.setDefault(IAPropertiesConstants.DB_TYPE, "mysql");
+		store.setDefault(IAPropertiesConstants.VALIDATE_FLAG, true);
+		store.setDefault(IAPropertiesConstants.DEDUP_FLAG, true);
+		
 	}
 
 }

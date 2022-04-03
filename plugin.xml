@@ -29,37 +29,25 @@
             sequence="M1+6">
       </key>
    </extension>
+   
+   
    <extension
          point="org.eclipse.ui.menus">
-    <menuContribution 
-          locationURI="popup:org.eclipse.ui.popup.any?after=additions">
-       <menu
-             commandId="cn.sqllabs.ia.plugin.commands.sampleCommand"
-             id="cn.sqllabs.ia.plugin.popupMenu"
-             label="Index Advise">
-       </menu>
-    </menuContribution>
           <menuContribution
             locationURI="popup:org.eclipse.ui.popup.any?after=additions">
              <command
-            label="Index Advisor2"
+            label="Index Advisor"
             commandId="cn.sqllabs.ia.plugin.commands.sampleCommand">
       </command>
-         <menu
-               id="com.coala.core.menus.popupMenu"
-               label="Index Advisor"
-               mnemonic="o">
-
-         </menu>
       </menuContribution>
-    
-    
-    
+
    </extension>
+   
+
       <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            id="cn.sqllabs.ia.plugin.properties.IndexAdvisorPropertyPage"
+            id="cn.sqllabs.ia.plugin.defaultPreferences"
             name="Index Advisor Preferences"
             class="cn.sqllabs.ia.plugin.properties.IndexAdvisorPropertyPage">
       </page>
@@ -72,29 +60,14 @@
    </extension>
    <extension
          point="org.eclipse.ui.propertyPages">
-      <page
-            id="cn.sqllabs.ia.plugin.properties.IAPropertyPage"
-            name="IA Config"
-            class="cn.sqllabs.ia.plugin.properties.IAPropertyPage"
-            >
-         <enabledWhen>
-            <instanceof
-                  value="org.eclipse.core.resources.IProject">
-            </instanceof>
-         </enabledWhen>
-      </page>
             <page
             id="cn.sqllabs.ia.plugin.properties.IndexAdvisorPropertyPage.project"
-            name="Index Advisor Config"
+            name="Index Advisor"
             class="cn.sqllabs.ia.plugin.properties.IndexAdvisorPropertyPage"
             objectClass="org.eclipse.core.resources.IProject"
 	        adaptable="true"
             >
-         <enabledWhen>
-            <instanceof
-                  value="org.eclipse.core.resources.IProject">
-            </instanceof>
-         </enabledWhen>
+
       </page>
    </extension>
 </plugin>
