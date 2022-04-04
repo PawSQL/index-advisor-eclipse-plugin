@@ -13,12 +13,12 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.QualifiedName;
+import org.eclipse.jdt.core.IPackageFragment;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -27,6 +27,7 @@ import org.eclipse.ui.PlatformUI;
 import com.bdaum.overlayPages.FieldEditorOverlayPage;
 import com.tigerose.sqllab.foundation.utils.Config;
 import com.tigerose.sqllab.foundation.utils.connector.ServerInfo;
+import com.tigerose.sqllab.indexadvisor.IndexAdvisor;
 
 import cn.sqllabs.ia.plugin.properties.IAPropertiesConstants;
 
@@ -61,79 +62,95 @@ public class IndexAdvisorHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		IFile file = null;
 		IProject project = null;
-		IFolder fold = null;
-		String resultfolder= null;
-		IResource resource = null;
+		String resultPath= null;
+		String sourcePath = null;
 		IFile resultFile = null;
+		
+		Object selectItem = null;
 		ISelection selection = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getSelectionService()
 				.getSelection();
 		if (selection instanceof IStructuredSelection) {
-			Object item = ((IStructuredSelection) selection).getFirstElement();
-			file = Adapters.adapt(item, IFile.class);
-			fold = Adapters.adapt(item, IFolder.class);
-			project = Adapters.adapt(item, IProject.class);
-			
+			selectItem = ((IStructuredSelection) selection).getFirstElement();
 		}
 
-		if(file==null && fold==null && project==null && resource==null) {
-			return null;
-		}
-		
-		if (file != null) {
+		String fileName = "/ia_index.sql";
+		if (selectItem instanceof IFile) {
+			IFile file = (IFile)selectItem;
 			project = file.getProject();
-			String fileName = file.getName();
+			sourcePath = file.getRawLocation().toOSString();
+			
+			fileName = file.getName();
 			fileName = fileName.substring(0,fileName.lastIndexOf('.'));
-			fileName = fileName.concat(".sql");
+			fileName = fileName.concat("_ia_index.sql");
+			
 			IContainer container = file.getParent();
 			resultFile = container.getFile(new Path(fileName));
-			resultfolder = resultFile.getFullPath().toPortableString();
-		}else if(fold !=null){
+			resultPath = resultFile.getRawLocation().toOSString();
+		}else if(selectItem instanceof IFolder){
 			//fold
+			IFolder fold = (IFolder)selectItem;
 			project = fold.getProject();
-			String path = fold.getFullPath().toPortableString();
-			resultfolder = path.concat("/index.sql");
+			sourcePath = fold.getRawLocation().toOSString();
 			
-			resultFile = fold.getFile(new Path("index.sql"));
-			
-		}else if(project!=null){
+			String path = fold.getRawLocation().toOSString();
+			resultPath = path.concat(fileName);
+			//create file in eclipse ui
+			resultFile = fold.getFile(new Path(fileName));
+		}else if(Adapters.adapt(selectItem, IProject.class)!=null){
 			//project
-			String path = project.getFullPath().toPortableString();
-			resultfolder = path.concat("/index.sql");
-			resultFile = project.getFile(new Path("index.sql"));
-		}else {
-			//resource
-			String path = resource.getLocation().toPortableString();
-			resultfolder = path.concat("/index.sql");
-			IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-			IResource resource1 = root.findMember(new Path(path));
-			if (!resource1.exists() || !(resource1 instanceof IContainer)) {
-				throw new ExecutionException("Container \"" + path + "\" does not exist.");
-			}
-			IContainer container = (IContainer) resource1;
-			resultFile = container.getFile(new Path("index.sql"));
+			project = Adapters.adapt(selectItem, IProject.class);
+			String path = project.getLocation().toOSString();
+			sourcePath = path;
+			
+			resultPath = path.concat(fileName);
+			//create file in eclipse ui
+			resultFile = project.getFile(new Path(fileName));
+		}else if(selectItem instanceof IPackageFragment){
+			IPackageFragment pf = (IPackageFragment)selectItem;
+			project = pf.getJavaProject().getProject();
+			String path = pf.getResource().getRawLocation().toOSString();
+			sourcePath = path;
+			
+			resultPath = path.concat(fileName);
+			pf.getResource().getFullPath().append(fileName).toString();
+			//create file in eclipse ui
+			resultFile = project.getFile(new Path(pf.getResource().getFullPath().append(fileName).toString()));
+		}else if(selectItem instanceof IPackageFragmentRoot){
+			IPackageFragmentRoot pfr = (IPackageFragmentRoot)selectItem;
+			project = pfr.getJavaProject().getProject();
+			String path = pfr.getResource().getRawLocation().toOSString();
+			sourcePath = path;
+			
+			resultPath = path.concat(fileName);
+			//create file in eclipse ui
+			resultFile = project.getFile(new Path(fileName));
 		}
-
+		if (project == null || resultFile ==null)
+			return null;
+		
+		
 		try {
-			InputStream stream = new ByteArrayInputStream(null);
+			InputStream stream = new ByteArrayInputStream("".getBytes());
 			if (resultFile.exists()) {
 					resultFile.setContents(stream, true, true, null);
-
 			} else {
 				resultFile.create(stream, true, null);
 			}
 			stream.close();
 		} catch (IOException | CoreException e) {
 		}
-		
-		
-		if (project == null)
-			return null;
 
 		Config config = getConfig(project);
-		config.setResultFolder(resultfolder);
-
+		config.setResultFolder(resultPath);
+		config.setQueryFolder(sourcePath);
+		config.setMapperFolder(sourcePath);
+		config.setStatsMode("none");
+		config.setLandFlag(false);
+		
+		IndexAdvisor ia = new IndexAdvisor(config);
+		ia.loadStatsAndDDL();
+		ia.recommendIndexes();
 		return null;
 	}
 
@@ -162,6 +179,7 @@ public class IndexAdvisorHandler extends AbstractHandler {
 //		config.setQueryFolder(sqlFolder);
 		config.setServer(server);
 		config.setDatabaseList(Arrays.asList(schemaList.split(",")));
+		config.getServer().setSchemaList(config.getDatabaseList());
 		config.setDedupExistingFlag(dedup);
 		config.setValidate(validate);
 		return config;

@@ -199,7 +199,7 @@ public abstract class FieldEditorOverlayPage
 		radioGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		useWorkspaceSettingsButton = createRadioButton(radioGroup, Messages.getString("OverlayPage.Use_Workspace_Settings")); //$NON-NLS-1$
 		useProjectSettingsButton = createRadioButton(radioGroup, Messages.getString("OverlayPage.Use_Project_Settings")); //$NON-NLS-1$
-		configureButton = new Button(comp, SWT.PUSH);
+		configureButton = new Button(comp, SWT.PUSH|SWT.LEFT);
 		configureButton.setText(Messages.getString("OverlayPage.Configure_Workspace_Settings")); //$NON-NLS-1$
 		configureButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {

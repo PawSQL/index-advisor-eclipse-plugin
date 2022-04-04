@@ -7,7 +7,8 @@ Bundle-Activator: cn.sqllabs.ia.plugin.Activator
 Bundle-Vendor: Tigerose SQLLabs
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.core.resources
+ org.eclipse.core.resources,
+ org.eclipse.jdt.core;bundle-version="3.27.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: cn.sqllabs.ia.plugin
 Bundle-ActivationPolicy: lazy
@@ -40,4 +41,5 @@ Bundle-ClassPath: libs/antlr4-runtime-4.9.2.jar,
  libs/terajdbc4-14.00.00.14.jar,
  libs/xercesImpl-2.11.0.jar,
  libs/xml-apis-1.0.b2.jar,
- .
+ .,
+ libs/sqllab-indexadvisor.jar
