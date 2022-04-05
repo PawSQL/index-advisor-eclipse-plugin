@@ -5,11 +5,11 @@
          point="org.eclipse.ui.commands">
       <category
             id="cn.sqllabs.ia.plugin.commands.category"
-            name="Sample Category">
+            name="%category.name">
       </category>
       <command
             categoryId="cn.sqllabs.ia.plugin.commands.category"
-            name="Sample Command"
+            name="%command.name"
             id="cn.sqllabs.ia.plugin.commands.sampleCommand">
       </command>
    </extension>
@@ -36,7 +36,7 @@
           <menuContribution
             locationURI="popup:org.eclipse.ui.popup.any?after=additions">
              <command
-            label="Run Index Advisor"
+            label="%command.label"
             commandId="cn.sqllabs.ia.plugin.commands.sampleCommand">
       </command>
       </menuContribution>
@@ -48,7 +48,7 @@
          point="org.eclipse.ui.preferencePages">
       <page
             id="cn.sqllabs.ia.plugin.defaultPreferences"
-            name="Index Advisor Preferences"
+            name="%page.name"
             class="cn.sqllabs.ia.plugin.properties.IndexAdvisorPropertyPage">
       </page>
    </extension>
@@ -62,7 +62,7 @@
          point="org.eclipse.ui.propertyPages">
             <page
             id="cn.sqllabs.ia.plugin.properties.IndexAdvisorPropertyPage.project"
-            name="Index Advisor"
+            name="%page.name.0"
             class="cn.sqllabs.ia.plugin.properties.IndexAdvisorPropertyPage"
             objectClass="org.eclipse.core.resources.IProject"
 	        adaptable="true"
