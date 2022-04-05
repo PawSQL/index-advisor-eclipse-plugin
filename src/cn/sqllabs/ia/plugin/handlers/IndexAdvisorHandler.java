@@ -22,7 +22,11 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.ui.ide.IDE;
 
 import com.bdaum.overlayPages.FieldEditorOverlayPage;
 import com.tigerose.sqllab.foundation.utils.Config;
@@ -151,6 +155,14 @@ public class IndexAdvisorHandler extends AbstractHandler {
 		IndexAdvisor ia = new IndexAdvisor(config);
 		ia.loadStatsAndDDL();
 		ia.recommendIndexes();
+		
+		IWorkbenchWindow workbenchWindow = HandlerUtil.getActiveWorkbenchWindow(event);
+
+		try {
+			IDE.openEditor(workbenchWindow.getActivePage(), resultFile);
+		} catch (PartInitException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
