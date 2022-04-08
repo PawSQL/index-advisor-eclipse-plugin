@@ -4,29 +4,29 @@
    <extension
          point="org.eclipse.ui.commands">
       <category
-            id="cn.sqllabs.ia.plugin.commands.category"
+            id="com.pawsql.ia.plugin.commands.category"
             name="%category.name">
       </category>
       <command
-            categoryId="cn.sqllabs.ia.plugin.commands.category"
+            categoryId="com.pawsql.ia.plugin.commands.category"
             name="%command.name"
-            id="cn.sqllabs.ia.plugin.commands.sampleCommand">
+            id="com.pawsql.ia.plugin.commands.runia">
       </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="cn.sqllabs.ia.plugin.handlers.IndexAdvisorHandler"
-            commandId="cn.sqllabs.ia.plugin.commands.sampleCommand">
+            class="com.pawsql.ia.plugin.handlers.IAHandler"
+            commandId="com.pawsql.ia.plugin.commands.runia">
       </handler>
    </extension>
    <extension
          point="org.eclipse.ui.bindings">
       <key
-            commandId="cn.sqllabs.ia.plugin.commands.sampleCommand"
+            commandId="com.pawsql.ia.plugin.commands.runia"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             contextId="org.eclipse.ui.contexts.window"
-            sequence="M1+6">
+            sequence="M1+0">
       </key>
    </extension>
    
@@ -37,7 +37,7 @@
             locationURI="popup:org.eclipse.ui.popup.any?after=additions">
              <command
             label="%command.label"
-            commandId="cn.sqllabs.ia.plugin.commands.sampleCommand">
+            commandId="com.pawsql.ia.plugin.commands.runia">
       </command>
       </menuContribution>
 
@@ -47,23 +47,23 @@
       <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            id="cn.sqllabs.ia.plugin.defaultPreferences"
+            id="com.pawsql.ia.plugin.defaultPreferences"
             name="%page.name"
-            class="cn.sqllabs.ia.plugin.properties.IndexAdvisorPropertyPage">
+            class="com.pawsql.ia.plugin.properties.IAPropertyPage">
       </page>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
       <initializer
-            class="cn.sqllabs.ia.plugin.preferences.PreferenceInitializer">
+            class="com.pawsql.ia.plugin.preferences.PreferenceInitializer">
       </initializer>
    </extension>
    <extension
          point="org.eclipse.ui.propertyPages">
             <page
-            id="cn.sqllabs.ia.plugin.properties.IndexAdvisorPropertyPage.project"
+            id="com.pawsql.ia.plugin.properties.IndexAdvisorPropertyPage.project"
             name="%page.name.0"
-            class="cn.sqllabs.ia.plugin.properties.IndexAdvisorPropertyPage"
+            class="com.pawsql.ia.plugin.properties.IAPropertyPage"
             objectClass="org.eclipse.core.resources.IProject"
 	        adaptable="true"
             >

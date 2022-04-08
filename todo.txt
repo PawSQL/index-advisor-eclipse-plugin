@@ -1,0 +1,4 @@
+1. parse ddl/stats for only once
+2. console
+3. only select one file.
+4. open result file after running index advisor.(done 0405)
