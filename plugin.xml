@@ -13,6 +13,7 @@
             id="com.pawsql.ia.plugin.commands.runia">
       </command>
    </extension>
+
    <extension
          point="org.eclipse.ui.handlers">
       <handler
@@ -20,6 +21,7 @@
             commandId="com.pawsql.ia.plugin.commands.runia">
       </handler>
    </extension>
+
    <extension
          point="org.eclipse.ui.bindings">
       <key
@@ -30,65 +32,34 @@
       </key>
    </extension>
 
-   <extension
-         point="org.eclipse.ui.menus">
-<<<<<<< HEAD
-          <menuContribution
-            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
-             <command
-            label="%command.label"
-            commandId="com.pawsql.ia.plugin.commands.runia">
-      </command>
-=======
-    <menuContribution 
+   <extension 
+   		point="org.eclipse.ui.menus">
+          <menuContribution 
           locationURI="popup:org.eclipse.ui.popup.any?after=additions">
-       <menu
-             commandId="cn.sqllabs.ia.plugin.commands.sampleCommand"
-             id="cn.sqllabs.ia.plugin.popupMenu"
-             label="Index Advise">
-       </menu>
-    </menuContribution>
-          <menuContribution
-            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
-             <command
-            label="Index Advisor2"
-            commandId="cn.sqllabs.ia.plugin.commands.sampleCommand">
-      </command>
-         <menu
-               id="com.coala.core.menus.popupMenu"
-               label="Index Advisor"
-               mnemonic="o">
-
-         </menu>
->>>>>>> branch 'master' of git@github.com:PawSQL/index-advisor-eclipse-plugin.git
+             <command 
+             label="%command.label" 
+             commandId="com.pawsql.ia.plugin.commands.runia">
+      		</command>
       </menuContribution>
-<<<<<<< HEAD
-=======
-    
-    
-    
->>>>>>> branch 'master' of git@github.com:PawSQL/index-advisor-eclipse-plugin.git
    </extension>
-      <extension
+   
+   
+   <extension
          point="org.eclipse.ui.preferencePages">
       <page
-<<<<<<< HEAD
             id="com.pawsql.ia.plugin.defaultPreferences"
             name="%page.name"
             class="com.pawsql.ia.plugin.properties.IAPropertyPage">
-=======
-            id="cn.sqllabs.ia.plugin.properties.IndexAdvisorPropertyPage"
-            name="Index Advisor Preferences"
-            class="cn.sqllabs.ia.plugin.properties.IndexAdvisorPropertyPage">
->>>>>>> branch 'master' of git@github.com:PawSQL/index-advisor-eclipse-plugin.git
       </page>
    </extension>
+   
    <extension
          point="org.eclipse.core.runtime.preferences">
       <initializer
             class="com.pawsql.ia.plugin.preferences.PreferenceInitializer">
       </initializer>
    </extension>
+   
    <extension
          point="org.eclipse.ui.propertyPages">
             <page
