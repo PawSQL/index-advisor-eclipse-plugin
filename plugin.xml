@@ -29,8 +29,7 @@
             sequence="M1+0">
       </key>
    </extension>
-   
-   
+
    <extension
          point="org.eclipse.ui.menus">
           <menuContribution
@@ -40,10 +39,7 @@
             commandId="com.pawsql.ia.plugin.commands.runia">
       </command>
       </menuContribution>
-
    </extension>
-   
-
       <extension
          point="org.eclipse.ui.preferencePages">
       <page
@@ -67,7 +63,6 @@
             objectClass="org.eclipse.core.resources.IProject"
 	        adaptable="true"
             >
-
       </page>
    </extension>
 </plugin>

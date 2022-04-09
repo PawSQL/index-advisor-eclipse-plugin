@@ -125,18 +125,21 @@ public class IAHandler extends AbstractHandler {
 		config.setMapperFolder(sourcePath);
 		config.setStatsMode("none");
 		config.setLandFlag(false);
-
-		IndexAdvisor ia = new IndexAdvisor(config);
-		ia.loadStatsAndDDL();
-		ia.recommendIndexes();
-
-		// open recommended index file after running index advisor
-		IWorkbenchWindow workbenchWindow = HandlerUtil.getActiveWorkbenchWindow(event);
-		try {
-			IDE.openEditor(workbenchWindow.getActivePage(), resultFile);
-		} catch (PartInitException e) {
-			e.printStackTrace();
-		}
+		
+		IFile resultFile2 = resultFile;
+		new Thread(() -> {
+			IndexAdvisor ia = new IndexAdvisor(config);
+			ia.loadStatsAndDDL();
+			ia.recommendIndexes();
+			
+			// open recommended index file after running index advisor
+			IWorkbenchWindow workbenchWindow = HandlerUtil.getActiveWorkbenchWindow(event);
+			try {
+				IDE.openEditor(workbenchWindow.getActivePage(), resultFile2);
+			} catch (PartInitException e) {
+				e.printStackTrace();
+			}
+		}).start();
 
 		return null;
 	}

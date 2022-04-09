@@ -17,10 +17,6 @@ public class ConsoleLog {
 	static MessageConsoleStream consoleStream = null;
 	static IConsoleManager consoleManager = null;
 	final static String CONSOLE_NAME = "Index Advisor Console";
-	static {
-		PropertyConfigurator.configure("config/log4j.properties");
-	}
-
 	static public void initConsole() {
 		consoleManager = ConsolePlugin.getDefault().getConsoleManager();
 		IConsole[] consoles = consoleManager.getConsoles();
